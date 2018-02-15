@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "sym",
       "styles": [
-        "styles.scss"
+        "styles.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
