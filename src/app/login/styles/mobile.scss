@@ -1,0 +1,70 @@
+.section-container {
+  height: 100vh;
+  background-color: $dark-gray;
+
+  .section-header {
+    color: $white;
+    padding-top: 40px;
+    text-align: center;
+  }
+
+  .form-container {
+    max-width: 720px;
+    margin-top: 40px;
+    margin: 45px auto 0;
+
+    .input-container {
+      position: relative;
+
+      .svg-container {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    .input {
+      border: 0;
+      font-size: 19px;
+      color: $white;
+      outline: none;
+      border-radius: 5px;
+
+      &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $white;
+        opacity: 1; /* Firefox */
+      }
+
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $white;
+      }
+
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        color: $white;
+      }
+    }
+
+    .user-input {
+      background-color: $light-gray;
+      display: block;
+      width: calc(100% - 65px);
+      margin: 15px 0;
+      padding: 15px 15px 15px 50px;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 10px;
+      background-color: $green;
+      opacity: 1;
+      cursor: pointer;
+
+      &:hover {
+        opacity: .8;
+        transition: .5s opacity ease;
+      }
+    }
+  }
+}
