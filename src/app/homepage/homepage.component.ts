@@ -15,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
 export class HomepageComponent implements OnInit {
 
   constructor(public af: AngularFireAuth, 
-    private votingDataService: VotingDataService,
+    public votingDataService: VotingDataService,
     private router: Router) { }
 
   ngOnInit() {
