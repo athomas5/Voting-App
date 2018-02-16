@@ -11,7 +11,7 @@ export class VotingOptionComponent implements OnInit {
   @Input('votes') votes: number;
   active: boolean = false;
 
-  constructor(private votingDataService: VotingDataService) { }
+  constructor(public votingDataService: VotingDataService) { }
 
   ngOnInit() {
   }
