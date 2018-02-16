@@ -1,0 +1,49 @@
+.voting-section-container {
+  max-width: 720px;
+  margin: 30px auto 0;
+  cursor: pointer;
+
+  .voting-name {
+    color: $white;
+    padding-bottom: 10px;
+  }
+
+  .voting-container {
+    .bar {
+      width: 80%;
+      height: 40px;
+      display: inline-block;
+      border-radius: 10px;
+    }
+
+    .bar-wrapper {
+      background-color: $white;
+      position: relative;
+
+      .votes {
+        position: absolute;
+        top: 8px;
+        right: 15px;
+        font-size: 19px;
+        font-weight: 400;
+        color: $pink;
+      }
+
+      .bar-progress {
+        background-color: $green;
+      }
+    }
+
+    .check-box {
+      width: 19%;
+      height: 40px;
+      display: inline-block;
+      opacity: .3;
+
+      &:hover {
+        opacity: 1;
+        transition: .5s opacity ease;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-export type svgOption = 'User' | 'Password';
+export type svgOption = 'User' | 'Password' | 'Check';
 
 @Component({
   selector: 'sym-svg',

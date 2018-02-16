@@ -1,0 +1,15 @@
+<section class="voting-section-container">
+  <h3 class="voting-name">{{name}}</h3>
+  <div class="voting-container">
+    <!-- Progressbar -->
+    <div class="bar bar-wrapper">
+      <p class="votes">{{votes}}</p>
+      <div class="bar bar-progress"></div>
+    </div>
+
+    <!-- Checkbox -->
+    <div class="check-box" (click)="this.votingDataService.addVote(this.getOptionIndex())">
+      <sym-svg [svgName]="'Check'" [style]="'green'"></sym-svg>
+    </div>
+  </div>
+</section>

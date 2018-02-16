@@ -1,13 +1,4 @@
 .section-container {
-  height: 100vh;
-  background-color: $dark-gray;
-
-  .section-header {
-    color: $white;
-    padding-top: 40px;
-    text-align: center;
-  }
-
   .form-container {
     max-width: 720px;
     margin-top: 40px;
@@ -54,16 +45,27 @@
       padding: 15px 15px 15px 50px;
     }
 
-    .submit-button {
+    .signIn-button {
       width: 100%;
       padding: 10px;
       background-color: $green;
       opacity: 1;
+      margin-bottom: 15px;
       cursor: pointer;
 
       &:hover {
         opacity: .8;
         transition: .5s opacity ease;
+      }
+    }
+
+    .signUp-button {
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: $green;
+        transition: .5s color ease;
       }
     }
   }

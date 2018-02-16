@@ -1,0 +1,17 @@
+.section-container {
+  position: relative;
+
+  .signOut-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: $white;
+    font-size: 19px;
+    cursor: pointer;
+
+    &:hover {
+      color: $green;
+      transition: .5s color ease;
+    }
+  }
+}

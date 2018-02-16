@@ -12,3 +12,11 @@ svg {
 
   path { fill: $white; }
 }
+
+.green {
+  fill: $green;
+
+  g { fill: $green; }
+
+  path { fill: $green; }
+}

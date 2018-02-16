@@ -9,11 +9,12 @@ $viewport-desktop: 1140px;
 $dark-gray: #323642;
 $light-gray: #464A55;
 $red: #FC445F;
+$pink: #df27a0;
 $green: #27DF94;
 $white: #ecf0f1;
 
 // Variables
-$section-padding: 50px;
+$section-padding: 25px;
 
 // Global styles
 * {
@@ -24,9 +25,14 @@ $section-padding: 50px;
 }
 
 .section-container {
+  height: 100vh;
   padding: 0 $section-padding;
+  background-color: $dark-gray;
 }
 
 .section-header {
   font-size: 28px;
+  color: $white;
+  padding-top: 40px;
+  text-align: center;
 }
