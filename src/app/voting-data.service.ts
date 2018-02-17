@@ -1,24 +1,53 @@
 import { Injectable, OnInit } from '@angular/core';
+import { UserDataService } from './user-data.service';
 
 @Injectable()
 export class VotingDataService implements OnInit {
   options: any = [];
   totalVotes: number;
   API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
-  MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/options/';
+  MLAB_URL_OPTIONS: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/options/';
+  MLAB_URL_USERS: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users/';
+  MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users?apiKey=';
 
-  constructor() { }
+  constructor(private userDataService: UserDataService) { }
 
   ngOnInit() { }
 
   addVote(index: number): void {
-    this.options[index].votes++;
-    this.updateVotesInDB(index);
-    this.sortOptions();
+    console.log(this.options);
+    if (this.userDataService.votedOption !== this.options[index].name) {
+      this.options[index].votes++;
+      this.updateVotesInDB(index);
+      this.updateUserDataInDB(index);
+      this.sortOptions();
+    }
+  }
+
+  updateUserDataInDB(index: number): void {
+    let userObject = {
+      "_id": {
+          "$oid": this.userDataService.id
+      },
+      "email": this.userDataService.email,
+      "voted": true,
+      "votedOption": this.options[index].name
+    }
+
+    fetch(this.MLAB_URL_USERS + this.userDataService.id + '?apiKey=' + this.API_KEY, {
+      method: 'PUT',
+      body: JSON.stringify(userObject), 
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => res.json())
+    .then(() => this.userDataService.getUserDataFromDB())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
   }
 
   updateVotesInDB(index: number): void {
-    fetch(this.MLAB_URL + this.options[index]._id.$oid + '?apiKey=' + this.API_KEY, {
+    fetch(this.MLAB_URL_OPTIONS + this.options[index]._id.$oid + '?apiKey=' + this.API_KEY, {
       method: 'PUT',
       body: JSON.stringify(this.options[index]), 
       headers: new Headers({

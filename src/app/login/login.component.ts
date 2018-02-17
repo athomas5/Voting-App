@@ -16,15 +16,16 @@ export class LoginComponent implements OnInit {
   @ViewChild('passwordRef') passwordRef: ElementRef;
   user: Observable<firebase.User>;
 
+  API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
+  MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users?apiKey=';
+
   constructor(public af: AngularFireAuth, private router: Router) {
     this.af.authState.subscribe(auth => {
-      console.log(auth);
       if (auth != null) {
         this.user = af.authState;
         this.router.navigate(['/home']);
       }
     });
-    console.log(af.authState);
    }
 
   ngOnInit() { }
@@ -38,9 +39,28 @@ export class LoginComponent implements OnInit {
 
   signUp(): void {
     firebase.auth().createUserWithEmailAndPassword(this.emailRef.nativeElement.value, this.passwordRef.nativeElement.value)
-      .catch(error => {
-        console.log(error.code + ': ' + error.message);
+      .then(() => {
+        this.addNewUserToDB();
+      }).catch(error => {
+        if (error.code == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(error.message);
+        }
+        console.log(error);
     });
+  }
+
+  addNewUserToDB(): void {
+    fetch(this.MLAB_URL + this.API_KEY, {
+      method: 'POST',
+      body: JSON.stringify({ "email": firebase.auth().currentUser.email, "voted": false, "votedOption": null }), 
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
   }
 
 }

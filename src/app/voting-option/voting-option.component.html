@@ -8,7 +8,7 @@
     </div>
 
     <!-- Checkbox -->
-    <div class="check-box" (click)="this.votingDataService.addVote(this.getOptionIndex())">
+    <div [ngClass]="{'active' : active}" class="check-box" (click)="this.votingDataService.addVote(this.getOptionIndex())">
       <sym-svg [svgName]="'Check'" [style]="'green'"></sym-svg>
     </div>
   </div>

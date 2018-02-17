@@ -18,9 +18,7 @@ export class HomepageComponent implements OnInit {
     public votingDataService: VotingDataService,
     private router: Router) { }
 
-  ngOnInit() {
-    this.votingDataService.sortOptions();
-  }
+  ngOnInit() { }
 
   signOut(): void {
     firebase.auth().signOut().then(() => {
