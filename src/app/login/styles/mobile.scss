@@ -35,6 +35,10 @@
       ::-ms-input-placeholder { /* Microsoft Edge */
         color: $white;
       }
+
+      :-webkit-autofill { // Remove chrome autocomplete highlight
+        -webkit-box-shadow: 0 0 0 30px $light-gray inset;
+      }
     }
 
     .user-input {
@@ -51,6 +55,7 @@
       background-color: $green;
       opacity: 1;
       margin-bottom: 15px;
+      font-weight: 400;
       cursor: pointer;
 
       &:hover {
