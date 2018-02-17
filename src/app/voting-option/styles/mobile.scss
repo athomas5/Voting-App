@@ -10,13 +10,13 @@
 
   .voting-container {
     .bar {
-      width: 80%;
       height: 40px;
       display: inline-block;
       border-radius: 10px;
     }
 
     .bar-wrapper {
+      width: 80%;
       background-color: $white;
       position: relative;
 
@@ -30,6 +30,7 @@
       }
 
       .bar-progress {
+        width: 0%;
         background-color: $green;
       }
     }

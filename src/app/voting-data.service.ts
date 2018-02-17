@@ -15,9 +15,11 @@ export class VotingDataService implements OnInit {
   ngOnInit() { }
 
   addVote(index: number): void {
-    console.log(this.options);
     if (this.userDataService.votedOption !== this.options[index].name) {
       this.options[index].votes++;
+      if (this.userDataService.voted) {
+        this.removePreviousOption();
+      }
       this.updateVotesInDB(index);
       this.updateUserDataInDB(index);
       this.sortOptions();
@@ -56,6 +58,14 @@ export class VotingDataService implements OnInit {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
+  }
+
+  removePreviousOption(): void {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].name === this.userDataService.votedOption) {
+        this.options[i].votes--;
+      }
+    }
   }
   
   sortOptions(): void {
