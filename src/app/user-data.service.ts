@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { MLabService } from './m-lab.service';
+
 // Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -12,10 +14,7 @@ export class UserDataService {
   voted: boolean;
   votedOption: string;
 
-  API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
-  MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users?apiKey=';
-
-  constructor(public af: AngularFireAuth) {
+  constructor(public af: AngularFireAuth, private mLab: MLabService) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.email = firebase.auth().currentUser.email;
@@ -25,13 +24,13 @@ export class UserDataService {
   }
 
   getUserDataFromDB(): void {
-    fetch(this.MLAB_URL + this.API_KEY).then(res => {
+    fetch(this.mLab.GET_USERS_URL + this.mLab.API_KEY).then(res => {
       res.json().then(data => {
         data.map(user => {
           if (user.email === this.email) {
             this.voted = user.voted;
             this.votedOption = user.votedOption;
-            this.id =  user._id.$oid;
+            this.id = user._id.$oid;
           }
         });
       })

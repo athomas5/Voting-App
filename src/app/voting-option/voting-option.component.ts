@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterContentChecked } from '@angular/core';
+
 import { VotingDataService } from '../voting-data.service';
 import { UserDataService } from '../user-data.service';
 

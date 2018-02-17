@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { VotingDataService } from '../voting-data.service';
 import { Router } from '@angular/router';
+
+import { UserDataService } from '../user-data.service';
+import { VotingDataService } from '../voting-data.service';
 
 // Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'sym-homepage',
@@ -17,7 +18,8 @@ export class HomepageComponent implements OnInit {
   email: string;
   totalVotes: number;
 
-  constructor(public af: AngularFireAuth, 
+  constructor(
+    public af: AngularFireAuth,
     public votingDataService: VotingDataService,
     public userDataService: UserDataService,
     private router: Router) { }
@@ -32,7 +34,7 @@ export class HomepageComponent implements OnInit {
   signOut(): void {
     firebase.auth().signOut().then(() => {
       this.router.navigate(['']);
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log(error.code + ': ' + error.message);
     });
   }

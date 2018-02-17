@@ -1,15 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
+
 import { UserDataService } from './user-data.service';
+import { MLabService } from './m-lab.service';
 
 @Injectable()
 export class VotingDataService implements OnInit {
   options: any = [];
-  API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
-  MLAB_URL_OPTIONS: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/options/';
-  MLAB_URL_USERS: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users/';
-  MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users?apiKey=';
 
-  constructor(private userDataService: UserDataService) { }
+  constructor(private userDataService: UserDataService, private mLab: MLabService) { }
 
   ngOnInit() { }
 
@@ -35,7 +33,7 @@ export class VotingDataService implements OnInit {
       "votedOption": this.options[index].name
     }
 
-    fetch(this.MLAB_URL_USERS + this.userDataService.id + '?apiKey=' + this.API_KEY, {
+    fetch(this.mLab.POST_USERS_URL + this.userDataService.id + '?apiKey=' + this.mLab.API_KEY, {
       method: 'PUT',
       body: JSON.stringify(userObject), 
       headers: new Headers({
@@ -48,7 +46,7 @@ export class VotingDataService implements OnInit {
   }
 
   updateVotesInDB(index: number): void {
-    fetch(this.MLAB_URL_OPTIONS + this.options[index]._id.$oid + '?apiKey=' + this.API_KEY, {
+    fetch(this.mLab.POST_OPTIONS_URL + this.options[index]._id.$oid + '?apiKey=' + this.mLab.API_KEY, {
       method: 'PUT',
       body: JSON.stringify(this.options[index]), 
       headers: new Headers({
