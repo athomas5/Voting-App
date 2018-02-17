@@ -16,10 +16,10 @@ export class VotingDataService implements OnInit {
 
   addVote(index: number): void {
     if (this.userDataService.votedOption !== this.options[index].name) {
-      this.options[index].votes++;
       if (this.userDataService.voted) {
         this.removePreviousOption();
       }
+      this.options[index].votes++;
       this.updateVotesInDB(index);
       this.updateUserDataInDB(index);
       this.sortOptions();
@@ -64,6 +64,7 @@ export class VotingDataService implements OnInit {
     for (let i = 0; i < this.options.length; i++) {
       if (this.options[i].name === this.userDataService.votedOption) {
         this.options[i].votes--;
+        this.updateVotesInDB(i);
       }
     }
   }
