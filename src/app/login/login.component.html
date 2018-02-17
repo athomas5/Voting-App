@@ -2,27 +2,26 @@
   <h1 class="section-header">Symplicity Voting App</h1>
 
   <div class="form-container">
-    <div action="">
-
-      <!-- Email -->
-      <div class="input-container email-container">
-        <div class="svg-container">
-          <sym-svg [svgName]="'User'" [style]="'light'"></sym-svg>
-        </div>
-        <input #emailRef class="input user-input" type="email" placeholder="Email">
+    <!-- Email -->
+    <div class="input-container email-container">
+      <div class="svg-container">
+        <sym-svg [svgName]="'User'" [style]="'light'"></sym-svg>
       </div>
-
-      <!-- Password -->
-      <div class="input-container password-container">
-        <div class="svg-container">
-          <sym-svg [svgName]="'Password'" [style]="'light'"></sym-svg>
-        </div>
-        <input #passwordRef class="input user-input" type="password" placeholder="Password">
-      </div>
-
-      <!-- Sign in -->
-      <button (click)="signIn()" class="input signIn-button">Login</button>
-      <p (click)="signUp()" class="input signUp-button">Sign up</p>
+      <input #emailRef class="input user-input" type="email" placeholder="Email">
     </div>
+
+    <!-- Password -->
+    <div class="input-container password-container">
+      <div class="svg-container">
+        <sym-svg [svgName]="'Password'" [style]="'light'"></sym-svg>
+      </div>
+      <input #passwordRef class="input user-input" type="password" placeholder="Password">
+    </div>
+
+    <!-- Sign in -->
+    <button (click)="signIn()" class="input signIn-button">Login</button>
+    <p (click)="signUp()" class="input signUp-button">Sign up</p>
   </div>
+
+  <p class="error-message">{{errorMessage}}</p>
 </section>

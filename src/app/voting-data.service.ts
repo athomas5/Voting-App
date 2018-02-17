@@ -22,8 +22,6 @@ export class VotingDataService implements OnInit {
       this.updateVotesInDB(index);
       this.updateUserDataInDB(index);
       this.sortOptions();
-    } else {
-      // Remove vote
     }
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { MLabService } from '../m-lab.service';
 
 // Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -15,21 +16,20 @@ export class LoginComponent implements OnInit {
   @ViewChild('emailRef') emailRef: ElementRef;
   @ViewChild('passwordRef') passwordRef: ElementRef;
   user: Observable<firebase.User>;
+  errorMessage: string;
 
-  API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
-  MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users?apiKey=';
+  constructor(public af: AngularFireAuth, private router: Router, private mLab: MLabService) { }
 
-  constructor(public af: AngularFireAuth, private router: Router) {
+  ngOnInit() {
     this.af.authState.subscribe(auth => {
       if (auth != null) {
-        this.user = af.authState;
+        this.user = this.af.authState;
         this.router.navigate(['/home']);
       }
     });
-   }
+  }
 
-  ngOnInit() { }
-
+  // Enter key: Eventlistener
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode === 13) {
@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
 
   signIn(): void {
     firebase.auth().signInWithEmailAndPassword(this.emailRef.nativeElement.value, this.passwordRef.nativeElement.value)
-      .catch(function(error) {
-        console.log(error.code + ': ' + error.message);
+      .catch(error => {
+        this.displayErrorMessage(error);
     });
   }
 
@@ -49,25 +49,28 @@ export class LoginComponent implements OnInit {
       .then(() => {
         this.addNewUserToDB();
       }).catch(error => {
-        if (error.code == 'auth/weak-password') {
-          alert('The password is too weak.');
-        } else {
-          alert(error.message);
-        }
-        console.log(error);
+        this.displayErrorMessage(error);
     });
   }
 
   addNewUserToDB(): void {
-    fetch(this.MLAB_URL + this.API_KEY, {
+    fetch(this.mLab.GET_USERS_URL + this.mLab.API_KEY, {
       method: 'POST',
       body: JSON.stringify({ "email": firebase.auth().currentUser.email, "voted": false, "votedOption": null }), 
       headers: new Headers({
         'Content-Type': 'application/json'
       })
     }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .catch(error => {
+      this.displayErrorMessage(error);
+    });
+  }
+
+  displayErrorMessage(error): void {
+    this.errorMessage = error.message;
+      setTimeout(() => {
+        this.errorMessage = '';
+    }, 4000);
   }
 
 }
