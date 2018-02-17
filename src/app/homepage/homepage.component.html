@@ -1,5 +1,6 @@
 <section class="section-container">
   <h1 class="section-header">Symplicity Voting App</h1>
+  <p class="email">{{email}}</p>
   <p (click)="signOut()" class="signOut-button">Sign Out</p>
   <sym-voting-option 
     *ngFor="let option of votingDataService.options" 

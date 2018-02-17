@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'sym-homepage',
@@ -13,10 +14,19 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+  email: string;
 
   constructor(public af: AngularFireAuth, 
     public votingDataService: VotingDataService,
-    private router: Router) { }
+    public userDataService: UserDataService,
+    private router: Router) {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          this.email = userDataService.email;
+        }
+      });
+      
+    }
 
   ngOnInit() { }
 
