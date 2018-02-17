@@ -35,14 +35,14 @@
       ::-ms-input-placeholder { /* Microsoft Edge */
         color: $white;
       }
+    }
 
-      :-webkit-autofill { // Remove chrome autocomplete highlight
-        -webkit-box-shadow: 0 0 0 30px $light-gray inset;
-      }
+    input:-webkit-autofill { // Remove chrome autocomplete highlight
+      -webkit-box-shadow: 0 0 0 30px $light-gray inset;
+    }
 
-      input:-webkit-autofill { // Change chrome autocomplete text color
-        -webkit-text-fill-color: $white !important;
-      }
+    input:-webkit-autofill { // Change chrome autocomplete text color
+      -webkit-text-fill-color: $white !important;
     }
 
     .user-input {
