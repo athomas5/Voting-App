@@ -32,6 +32,7 @@
       .bar-progress {
         width: 0%;
         background-color: $green;
+        transition: .5s width ease;
       }
     }
 

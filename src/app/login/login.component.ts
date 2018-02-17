@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Firebase
@@ -29,6 +29,13 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() { }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.signIn();
+    }
+  }
 
   signIn(): void {
     firebase.auth().signInWithEmailAndPassword(this.emailRef.nativeElement.value, this.passwordRef.nativeElement.value)

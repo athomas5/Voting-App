@@ -4,7 +4,6 @@ import { UserDataService } from './user-data.service';
 @Injectable()
 export class VotingDataService implements OnInit {
   options: any = [];
-  totalVotes: number;
   API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
   MLAB_URL_OPTIONS: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/options/';
   MLAB_URL_USERS: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users/';
@@ -23,6 +22,8 @@ export class VotingDataService implements OnInit {
       this.updateVotesInDB(index);
       this.updateUserDataInDB(index);
       this.sortOptions();
+    } else {
+      // Remove vote
     }
   }
 

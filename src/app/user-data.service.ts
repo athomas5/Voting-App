@@ -15,7 +15,7 @@ export class UserDataService {
   API_KEY: string = 'yI91dhkKuGjCZFNSXzNNwuejIJMU4tOw';
   MLAB_URL: string = 'https://api.mlab.com/api/1/databases/voting-app/collections/users?apiKey=';
 
-  constructor(public af: AngularFireAuth) { 
+  constructor(public af: AngularFireAuth) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.email = firebase.auth().currentUser.email;

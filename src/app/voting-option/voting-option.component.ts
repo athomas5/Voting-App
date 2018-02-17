@@ -31,7 +31,6 @@ export class VotingOptionComponent implements OnInit, AfterContentChecked {
 
   getTotalVotes(): number {
     let totalVotes = 0;
-
     this.votingDataService.options.map(option => {
       totalVotes += option.votes;
     });

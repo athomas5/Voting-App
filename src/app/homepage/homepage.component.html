@@ -2,9 +2,12 @@
   <h1 class="section-header">Symplicity Voting App</h1>
   <p class="email">{{email}}</p>
   <p (click)="signOut()" class="signOut-button">Sign Out</p>
+  
   <sym-voting-option 
     *ngFor="let option of votingDataService.options" 
     [name]="option.name" 
     [votes]="option.votes">
   </sym-voting-option>
+
+  <p class="total-votes">Total votes: {{totalVotes}}</p>
 </section>
