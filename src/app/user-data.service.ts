@@ -20,7 +20,6 @@ export class UserDataService {
     fetch(this.mLab.GET_USERS_URL + this.mLab.API_KEY).then(res => {
       res.json().then(data => {
         data.map(user => {
-          console.log(user);
           if (user.email === this.email) {
             this.voted = user.voted;
             this.votedOption = user.votedOption;

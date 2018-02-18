@@ -41,9 +41,6 @@ export class HomepageComponent implements OnInit {
     });
     setTimeout(() => {  
       this.dataLoaded = true;
-      console.log(this.userDataService.email);
-      console.log(this.userDataService.voted);
-      console.log(this.userDataService.votedOption);
     }, 1000);
   }
 
