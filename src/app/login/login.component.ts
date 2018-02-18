@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     });
-    console.log(this.userDataService.email);
   }
 
   // Enter key: Eventlistener
