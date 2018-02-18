@@ -24,7 +24,9 @@ export class HomepageComponent implements OnInit {
     public userDataService: UserDataService,
     private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userDataService.getUserDataFromDB();
+  }
 
   ngAfterContentChecked() {
     this.email = this.userDataService.email;
