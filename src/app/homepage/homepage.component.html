@@ -1,4 +1,4 @@
-<section class="section-container">
+<section *ngIf="dataLoaded" class="section-container">
   <h1 class="section-header">Symplicity Voting App</h1>
   <p class="email">{{email}}</p>
   <p (click)="signOut()" class="signOut-button">Sign Out</p>

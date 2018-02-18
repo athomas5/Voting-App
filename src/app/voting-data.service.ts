@@ -41,8 +41,7 @@ export class VotingDataService implements OnInit {
       })
     }).then(res => res.json())
     .then(() => this.userDataService.getUserDataFromDB())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .catch(error => console.error('Error:', error));
   }
 
   updateVotesInDB(index: number): void {
@@ -53,8 +52,7 @@ export class VotingDataService implements OnInit {
         'Content-Type': 'application/json'
       })
     }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .catch(error => console.error('Error:', error));
   }
 
   removePreviousOption(): void {

@@ -11,22 +11,11 @@ import { MLabService } from './m-lab.service';
   providers: [VotingDataService, UserDataService, MLabService]
 })
 export class AppComponent implements OnInit {
-
   constructor(
     private votingDataService: VotingDataService,
     private userDataService: UserDataService,
     private mLab: MLabService) { }
 
-  ngOnInit(): void {
-    this.getOptionsFromDB();
-  }
+  ngOnInit(){ }
 
-  getOptionsFromDB(): void {
-    fetch(this.mLab.GET_OPTIONS_URL + this.mLab.API_KEY).then(res => {
-      res.json().then(data => {
-        this.votingDataService.options = data;
-        this.votingDataService.sortOptions();
-      })
-    });
-  }
 }

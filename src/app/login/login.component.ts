@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { MLabService } from '../m-lab.service';
+import { UserDataService } from '../user-data.service';
 
 // Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   user: Observable<firebase.User>;
   errorMessage: string;
 
-  constructor(public af: AngularFireAuth, private router: Router, private mLab: MLabService) { }
+  constructor(public af: AngularFireAuth, private router: Router, private mLab: MLabService, private userDataService: UserDataService) { }
 
   ngOnInit() {
     this.af.authState.subscribe(auth => {
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     });
+    console.log(this.userDataService.email);
   }
 
   // Enter key: Eventlistener
@@ -56,7 +59,7 @@ export class LoginComponent implements OnInit {
   addNewUserToDB(): void {
     fetch(this.mLab.GET_USERS_URL + this.mLab.API_KEY, {
       method: 'POST',
-      body: JSON.stringify({ "email": firebase.auth().currentUser.email, "voted": false, "votedOption": null }), 
+      body: JSON.stringify({ "email": this.emailRef.nativeElement.value, "voted": false, "votedOption": null }), 
       headers: new Headers({
         'Content-Type': 'application/json'
       })

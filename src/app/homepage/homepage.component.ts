@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { UserDataService } from '../user-data.service';
 import { VotingDataService } from '../voting-data.service';
+import { MLabService } from '../m-lab.service';
 
 // Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -15,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+  dataLoaded: boolean = false;
   email: string;
   totalVotes: number;
 
@@ -22,10 +24,36 @@ export class HomepageComponent implements OnInit {
     public af: AngularFireAuth,
     public votingDataService: VotingDataService,
     public userDataService: UserDataService,
-    private router: Router) { }
+    private router: Router,
+    private mLab: MLabService) { }
 
   ngOnInit() {
-    this.userDataService.getUserDataFromDB();
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.getOptionsFromDB();
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.userDataService.email = firebase.auth().currentUser.email;
+        this.userDataService.getUserDataFromDB();
+      }
+    });
+    setTimeout(() => {  
+      this.dataLoaded = true;
+      console.log(this.userDataService.email);
+      console.log(this.userDataService.voted);
+      console.log(this.userDataService.votedOption);
+    }, 1000);
+  }
+
+  getOptionsFromDB() {
+    fetch(this.mLab.GET_OPTIONS_URL + this.mLab.API_KEY).then(res => {
+      res.json().then(data => {
+        this.votingDataService.options = data;
+        this.votingDataService.sortOptions();
+      })
+    });
   }
 
   ngAfterContentChecked() {

@@ -14,19 +14,13 @@ export class UserDataService {
   voted: boolean;
   votedOption: string;
 
-  constructor(public af: AngularFireAuth, private mLab: MLabService) {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.email = firebase.auth().currentUser.email;
-        this.getUserDataFromDB();
-      }
-    });
-  }
+  constructor(public af: AngularFireAuth, private mLab: MLabService) { }
 
-  getUserDataFromDB(): void {
+  getUserDataFromDB() {
     fetch(this.mLab.GET_USERS_URL + this.mLab.API_KEY).then(res => {
       res.json().then(data => {
         data.map(user => {
+          console.log(user);
           if (user.email === this.email) {
             this.voted = user.voted;
             this.votedOption = user.votedOption;
